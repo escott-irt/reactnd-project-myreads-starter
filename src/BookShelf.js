@@ -7,11 +7,12 @@ import BookShelfSection from './BookShelfSection'
 class BookShelf extends Component {
 
   static propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    updateBookShelf: PropTypes.func.isRequired
   }
 
   render() {
-    const { books } = this.props
+    const { books, updateBookShelf } = this.props
 
     console.log(books)
 
@@ -34,9 +35,21 @@ class BookShelf extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelfSection books={currentBooks} sectionTitle='Currently Reading'/>
-            <BookShelfSection books={futureBooks} sectionTitle='Want to Read'/>
-            <BookShelfSection books={pastBooks} sectionTitle='Read'/>
+            <BookShelfSection
+              books={currentBooks}
+              sectionTitle='Currently Reading'
+              updateBookShelf={updateBookShelf}
+            />
+            <BookShelfSection
+              books={futureBooks}
+              sectionTitle='Want to Read'
+              updateBookShelf={updateBookShelf}
+            />
+            <BookShelfSection
+              books={pastBooks}
+              sectionTitle='Read'
+              updateBookShelf={updateBookShelf}
+            />
           </div>
         </div>
         <div className="open-search">
