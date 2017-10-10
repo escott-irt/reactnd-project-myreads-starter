@@ -14,19 +14,14 @@ class BookShelf extends Component {
   render() {
     const { books, updateBookShelf } = this.props
 
-    console.log(books)
-
     let currentBooks = books.filter((book) => book.shelf === 'currentlyReading')
     currentBooks.sort(sortBy('title'))
-    console.log(currentBooks)
 
     let futureBooks = books.filter((book) => book.shelf === 'wantToRead')
     futureBooks.sort(sortBy('title'))
-    console.log(futureBooks)
 
     let pastBooks = books.filter((book) => book.shelf === 'read')
     pastBooks.sort(sortBy('title'))
-    console.log(pastBooks)
 
     return (
       <div className="list-books">

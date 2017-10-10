@@ -19,22 +19,34 @@ class BooksApp extends React.Component {
   }
 
   updateBookShelf = (book, shelf) => {
-    let bookList = this.state.books
-    for(var i = 0; i < bookList.length; i++) {
-      if (bookList[i].id === book.id) {
-        bookList[i].shelf = shelf
-        break
+    if (book.shelf !== shelf) {
+      let bookList = this.state.books
+      if (book.shelf) {
+        // the book is already on the bookshelf, find it and updated it.
+        for(var i = 0; i < bookList.length; i++) {
+          if (bookList[i].id === book.id) {
+            bookList[i].shelf = shelf
+            break
+          }
+        }
+      } else {
+        // the book is being added to the bookshelf.
+        book.shelf = shelf
+        bookList.push(book)
       }
+      BooksAPI.update(book, shelf)
+      this.setState({ books: bookList })
     }
-    this.setState(bookList)
-    BooksAPI.update(book, shelf)
   }
 
   render() {
     return (
       <div className="app">
         <Route path="/search" render={() => (
-          <SearchBooks/>
+          <SearchBooks
+            books={this.state.books}
+            updateBookShelf={this.updateBookShelf}
+          />
         )}/>
         <Route exact path="/" render={() => (
           <BookShelf

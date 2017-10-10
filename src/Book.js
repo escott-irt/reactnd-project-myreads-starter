@@ -14,7 +14,7 @@ class Book extends Component {
   }
 
   render() {
-    const { book, updateBookShelf } = this.props
+    const { book } = this.props
 
     return (
       <li key={book.id}>
@@ -25,11 +25,13 @@ class Book extends Component {
                 width: 128,
                 height: 193,
                 backgroundImage:
-                  `url(${book.imageLinks.thumbnail})`
+                  book.imageLinks ? `url(${book.imageLinks.thumbnail})` : ''
                 }}>
               </div>
             <div className="book-shelf-changer">
-              <select onChange={this.changeShelf.bind(this)}>
+              <select
+                onChange={this.changeShelf.bind(this)}
+                value={book.shelf ? book.shelf : "none"}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -39,7 +41,9 @@ class Book extends Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors.join(", ")}</div>
+          <div className="book-authors">
+              {book.authors ? book.authors.join(", ") : ''}
+          </div>
         </div>
       </li>
     )
